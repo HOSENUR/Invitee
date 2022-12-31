@@ -19,12 +19,28 @@ export default function Welcome(props) {
 
                     </p>
                     <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-                        <Link href='/register' class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-black rounded-lg bg-primary-100  focus:ring-4 focus:ring-primary-300">
-                            Continue as User
-                        </Link>
-                        <Link href="/register" data={{ type: "creator" }} class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                            Continue as Creator
-                        </Link>
+
+
+                        {props.auth.user ? (
+                            <>
+                            <Link href={route('logout')} method="post" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-black rounded-lg bg-primary-100  focus:ring-4 focus:ring-primary-300">
+                                Logout {props.auth.user.name}
+                            </Link>
+                            <Link href='/register' class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-black rounded-lg bg-primary-100  focus:ring-4 focus:ring-primary-300">
+                                Continue to Dashboard
+                            </Link>
+                            </>
+                        ) : (
+                            <>
+                                <Link href='/register' class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-black rounded-lg bg-primary-100  focus:ring-4 focus:ring-primary-300">
+                                    Continue as User
+                                </Link>
+                                <Link href="/register" data={{ type: "creator" }} class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                                    Continue as Creator
+                                </Link>
+                            </>
+
+                        )}
                     </div>
                     <div class="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
                         <span class="font-semibold text-gray-400 uppercase">FEATURED IN</span>
