@@ -1,7 +1,24 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/inertia-react';
+import { Head, useForm } from '@inertiajs/inertia-react';
+import TextInput from '@/Components/TextInput';
+import InputLabel from '@/Components/InputLabel';
 
 export default function Create(props) {
+
+    const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
+        eventName: '',
+        eventVenue: '',
+        eventCategory: '',
+        eventStart: '',
+        eventEnd: '',
+        eventTime: '',
+        eventDescription: '',
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+        post(route('event.store'));
+    }
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -10,9 +27,18 @@ export default function Create(props) {
         >
             <Head title="Dashboard" />
             <div className='flex flex-col'>
+                <InputLabel forInput="name" value="Name" />
+                <TextInput
+                    id="name"
+                    type="text"
+                    className="my-1 block w-full"
+                    value={data.eventName}
+                    required
+                    handleChange={(e) => setData('eventName', e.target.value)}
+                />
 
-                <label htmlFor="eventName">Event Name</label>
-                <input type="text" name="eventName" id="eventName" className='my-2 bg-white' placeholder='SunBurn Festival 2023' />
+                {/* <label htmlFor="eventName">Event Name</label>
+                <input value={data.eventName} type="text" name="eventName" id="eventName" className='my-2 bg-white' placeholder='SunBurn Festival 2023' /> */}
             </div>
 
             <span className='flex space-x-5 justify-center'>
